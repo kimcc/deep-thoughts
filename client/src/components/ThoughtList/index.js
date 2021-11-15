@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 // Take in 2 props, the thoughts array and a title and we destructure is with the {} so we don't have to write props.thoughts or props.title
 const ThoughtList = ({ thoughts, title }) => {
@@ -15,15 +16,23 @@ const ThoughtList = ({ thoughts, title }) => {
         thoughts.map(thought => (
           <div key={thought._id} className="card mb-3">
             <p className="card-header">
-              {thought.username}
+              <Link
+                to={`/profile/${thought.username}`}
+                style={{ fontWeight: 700 }}
+                className="text-light"
+              >
+                {thought.username}
+              </Link>{' '}
               thought on {thought.createdAt}
             </p>
             <div className="card-body">
-              <p>{thought.thoughtText}</p>
-              <p className="mb-0">
-                Reactions: {thought.reactionCount} || Click to{' '}
-                {thought.reactionCount ? 'see' : 'start'} the discussion!
-              </p>
+              <Link to={`/thought/${thought._id}`}>
+                <p>{thought.thoughtText}</p>
+                <p className="mb-0">
+                  Reactions: {thought.reactionCount} || Click to{' '}
+                  {thought.reactionCount ? 'see' : 'start'} the discussion!
+                </p>
+              </Link>
             </div>
           </div>
         ))}
